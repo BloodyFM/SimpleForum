@@ -1,3 +1,9 @@
+
+* {
+  /* lil cheat to keep stuff on the screen */
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",

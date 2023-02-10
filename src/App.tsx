@@ -5,6 +5,7 @@ import Layout from "./pages/RootLayout";
 import AuthPage from "./pages/AuthPage";
 import ErrorPage from "./pages/ErrorPage";
 import HomePage from "./pages/HomePage";
+import ProfilePage from "./pages/ProfilePage";
 
 const router = createBrowserRouter([
   {
@@ -14,6 +15,7 @@ const router = createBrowserRouter([
     children: [
       { index: true, element: <HomePage /> },
       { path: "/login", element: <AuthPage /> },
+      { path: "/profile", element: <ProfilePage /> },
     ],
   },
 ]);
