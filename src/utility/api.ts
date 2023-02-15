@@ -23,3 +23,13 @@ export async function savePost(postData: PostData) {
     throw response;
   }
 }
+
+export async function getPosts() {
+  const response = await fetch(
+    "https://react-http-test-af027-default-rtdb.europe-west1.firebasedatabase.app/forum.json"
+  );
+  if (!response.ok) {
+    throw new Response("Failed to fetch posts.", { status: 500 });
+  }
+  return response.json();
+}
