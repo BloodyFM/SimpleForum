@@ -33,3 +33,12 @@ export async function getPosts() {
   }
   return response.json();
 }
+
+export async function getPost(id: string) {
+  return fetch(
+    "https://react-http-test-af027-default-rtdb.europe-west1.firebasedatabase.app/forum/" +
+      id +
+      ".json"
+  );
+  // should add .json ?
+}

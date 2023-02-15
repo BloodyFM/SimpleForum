@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 import Card from "../UI/Card";
 
@@ -8,10 +9,12 @@ const PostItem: React.FC<{
   url: string;
   id: string;
 }> = ({ text, author, url, id }) => {
+  const navigate = useNavigate();
+
   const loadImage = url !== "";
 
   const openDetailHandler = () => {
-    console.log("Opens detail page in the future.");
+    navigate(`/${id}`);
   };
 
   return (
@@ -26,7 +29,7 @@ const PostItem: React.FC<{
               height="30%"
               width="30%"
               src={url}
-              alt={"Could not load. Url must be incorrect or it is expired."}
+              alt="Could not load. Url must be incorrect or it is expired."
             />
           )}
           <p>{text}</p>

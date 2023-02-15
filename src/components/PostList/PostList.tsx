@@ -10,7 +10,7 @@ const PostList: React.FC<{ findAutor: string; data: Posts[] }> = ({
   // filter to only show the selected user
   let filteredData: Posts[] = data;
   if (findAutor !== "") {
-    console.log("User: " + findAutor + ", filtering to only show users posts.");
+    //console.log("User: " + findAutor + ", filtering to only show users posts.");
     filteredData = data.filter((item) => item.author === findAutor);
   }
 

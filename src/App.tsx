@@ -7,6 +7,7 @@ import ErrorPage from "./pages/ErrorPage";
 import HomePage, { loader as postLoader } from "./pages/HomePage";
 import ProfilePage, { loader as personalPostLoader } from "./pages/ProfilePage";
 import NewPost, { action as newPostAction } from "./pages/NewPost";
+import DetailPage, { loader as detailPostLoader } from "./pages/DetailPage";
 
 const router = createBrowserRouter([
   {
@@ -22,6 +23,7 @@ const router = createBrowserRouter([
         loader: personalPostLoader,
       },
       { path: "/newpost", element: <NewPost />, action: newPostAction },
+      { path: ":id", element: <DetailPage />, loader: detailPostLoader },
     ],
   },
 ]);
