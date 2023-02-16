@@ -19,11 +19,6 @@ const Comments: React.FC<{}> = () => {
     grabData();
   }, [id, location]);
 
-  const grabDatahandler = async () => {
-    const data: CommentData[] = await getComments(id);
-    setCommentData(data);
-  };
-
   let commentList: any = <p>No Comments</p>;
   if (commentData.length > 0) {
     commentList = commentData.map((comment: CommentData) => (
@@ -37,7 +32,7 @@ const Comments: React.FC<{}> = () => {
 
   return (
     <>
-      <NewCommentForm id={id} onPublishComment={grabDatahandler} />
+      <NewCommentForm id={id} />
       <section>
         <ul>{commentList}</ul>
       </section>
