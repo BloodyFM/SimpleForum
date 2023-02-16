@@ -10,16 +10,16 @@ const PostDetail: React.FC<{ data: Posts }> = ({ data }) => {
     <Card>
       <section>
         <div>
-          <h2>{data.author}</h2>
+          <p>{data.author}</p>
         </div>
         <div>
+          <p>{data.text}</p>
           {loadImage && (
             <img
               src={data.img}
               alt="Could not load. Url must be incorrect or it is expired."
             />
           )}
-          <p>{data.text}</p>
         </div>
       </section>
     </Card>

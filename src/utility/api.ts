@@ -4,6 +4,12 @@ type PostData = {
   author: string;
 };
 
+export type CommentData = {
+  id: string;
+  data: { text: string; author: string };
+  quoteId: string;
+};
+
 export async function savePost(postData: PostData) {
   console.log(postData);
 
@@ -42,3 +48,49 @@ export async function getPost(id: string) {
   );
   // should add .json ?
 }
+
+export const saveComment = async (commentData: CommentData) => {
+  const response = await fetch(
+    "https://react-http-test-af027-default-rtdb.europe-west1.firebasedatabase.app/forumComments.json",
+    {
+      method: "POST",
+      body: JSON.stringify({
+        data: { text: commentData.data.text, author: commentData.data.author },
+        quoteId: commentData.quoteId,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
+
+  if (!response.ok) {
+    throw response;
+  }
+};
+
+export const getComments = async (postId: string) => {
+  const response = await fetch(
+    "https://react-http-test-af027-default-rtdb.europe-west1.firebasedatabase.app/forumComments.json"
+  );
+  if (!response.ok) {
+    throw new Response("Failed to fetch comments.", { status: 500 });
+  }
+  const commentData = await response.json();
+  // filter out comments based on postId and arranging it in a more usable format
+  const loadedComments: CommentData[] = [];
+  for (const key in commentData) {
+    if (commentData[key].quoteId === postId) {
+      loadedComments.push({
+        id: key.toString(),
+        data: {
+          text: commentData[key].data.text,
+          author: commentData[key].data.author,
+        },
+        quoteId: commentData[key].quoteId,
+      });
+    }
+  }
+
+  return loadedComments;
+};

@@ -24,6 +24,7 @@ const PostItem: React.FC<{
           <div>
             <h2>{author}</h2>
           </div>
+          <p>{text}</p>
           {loadImage && (
             <img
               height="30%"
@@ -32,7 +33,6 @@ const PostItem: React.FC<{
               alt="Could not load. Url must be incorrect or it is expired."
             />
           )}
-          <p>{text}</p>
         </section>
       </Card>
     </li>
