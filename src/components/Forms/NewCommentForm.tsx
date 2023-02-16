@@ -1,7 +1,10 @@
 import React from "react";
 import { Form } from "react-router-dom";
 
-const NewCommentForm: React.FC<{ id: string }> = ({ id }) => {
+const NewCommentForm: React.FC<{
+  id: string;
+  onPublishComment: () => void;
+}> = ({ id, onPublishComment }) => {
   return (
     <Form action={`/${id}`} method="post">
       <div>
@@ -9,7 +12,7 @@ const NewCommentForm: React.FC<{ id: string }> = ({ id }) => {
         <textarea name="comment-text" id="comment-text" rows={3} />
       </div>
       <div>
-        <button>Add Comment</button>
+        <button onClick={onPublishComment}>Add Comment</button>
       </div>
     </Form>
   );

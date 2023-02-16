@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 
 import { CommentData, getComments } from "../../utility/api";
 import Comment from "./Comment";
+import NewCommentForm from "../Forms/NewCommentForm";
 
 const Comments: React.FC<{}> = () => {
   const [commentData, setCommentData] = useState<CommentData[]>([]);
   const params: any = useParams();
   const id: string = params.id;
+  const location = useLocation();
 
   useEffect(() => {
     const grabData = async () => {
@@ -15,7 +17,12 @@ const Comments: React.FC<{}> = () => {
       setCommentData(data);
     };
     grabData();
-  }, [id]);
+  }, [id, location]);
+
+  const grabDatahandler = async () => {
+    const data: CommentData[] = await getComments(id);
+    setCommentData(data);
+  };
 
   let commentList: any = <p>No Comments</p>;
   if (commentData.length > 0) {
@@ -29,13 +36,12 @@ const Comments: React.FC<{}> = () => {
   }
 
   return (
-    <section>
-      <ul>
-        {commentList}
-        <Comment text="comment1" author="Test" />
-        <Comment text="comment2" author="Test2" />
-      </ul>
-    </section>
+    <>
+      <NewCommentForm id={id} onPublishComment={grabDatahandler} />
+      <section>
+        <ul>{commentList}</ul>
+      </section>
+    </>
   );
 };
 

@@ -7,7 +7,7 @@ type PostData = {
 export type CommentData = {
   id: string;
   data: { text: string; author: string };
-  quoteId: string;
+  postId: string;
 };
 
 export async function savePost(postData: PostData) {
@@ -56,7 +56,7 @@ export const saveComment = async (commentData: CommentData) => {
       method: "POST",
       body: JSON.stringify({
         data: { text: commentData.data.text, author: commentData.data.author },
-        quoteId: commentData.quoteId,
+        quoteId: commentData.postId,
       }),
       headers: {
         "Content-Type": "application/json",
@@ -87,7 +87,7 @@ export const getComments = async (postId: string) => {
           text: commentData[key].data.text,
           author: commentData[key].data.author,
         },
-        quoteId: commentData[key].quoteId,
+        postId: commentData[key].postId,
       });
     }
   }
