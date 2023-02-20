@@ -1,11 +1,21 @@
-import React from "react";
-import { useLoaderData } from "react-router-dom";
+import React, { useContext, useEffect } from "react";
+import { useLoaderData, useNavigate } from "react-router-dom";
 
 import { getPosts } from "../utility/api";
 import Posts from "../components/PostList/Posts";
 import PostList from "../components/PostList/PostList";
+import { AuthContext } from "../store/auth-context";
 
 const ProfilePage = () => {
+  const { isLoggedIn, username } = useContext(AuthContext);
+
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (!isLoggedIn) {
+      navigate("/login");
+    }
+  }, [isLoggedIn, navigate]);
+
   const loaderData: any = useLoaderData();
   const loadedPosts: Posts[] = [];
   for (const key in loaderData) {
@@ -19,6 +29,7 @@ const ProfilePage = () => {
 
   return (
     <>
+      <h1>{username}</h1>
       <h2>ProfilePage!</h2>
       <PostList findAutor="Admin" data={loadedPosts} />
     </>

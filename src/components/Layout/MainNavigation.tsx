@@ -1,11 +1,19 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useContext } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { AuthContext } from "../../store/auth-context";
 
 import style from "./MainNavigation.module.css";
 
 const MainNavigation = () => {
+  const { isLoggedIn } = useContext(AuthContext);
+
+  const navigate = useNavigate();
   const logoutHandler = () => {
-    console.log("logout");
+    if (!isLoggedIn) {
+      navigate("/login");
+    } else {
+      console.log("logout");
+    }
   };
 
   return (
@@ -15,17 +23,20 @@ const MainNavigation = () => {
       </Link>
       <nav>
         <ul>
+          {isLoggedIn && (
+            <li>
+              <Link to="/newpost">NewPost</Link>
+            </li>
+          )}
+          {isLoggedIn && (
+            <li>
+              <Link to="/profile">Profile</Link>
+            </li>
+          )}
           <li>
-            <Link to="/login">Login</Link>
-          </li>
-          <li>
-            <Link to="/newpost">NewPost</Link>
-          </li>
-          <li>
-            <Link to="/profile">Profile</Link>
-          </li>
-          <li>
-            <button onClick={logoutHandler}>Logout</button>
+            <button onClick={logoutHandler}>
+              {isLoggedIn ? "Logout" : "Login"}
+            </button>
           </li>
         </ul>
       </nav>

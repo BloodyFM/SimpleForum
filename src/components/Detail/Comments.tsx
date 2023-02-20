@@ -1,15 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { useLocation, useParams } from "react-router-dom";
 
 import { CommentData, getComments } from "../../utility/api";
 import Comment from "./Comment";
 import NewCommentForm from "../Forms/NewCommentForm";
+import { AuthContext } from "../../store/auth-context";
 
 const Comments: React.FC<{}> = () => {
   const [commentData, setCommentData] = useState<CommentData[]>([]);
   const params: any = useParams();
   const id: string = params.id;
   const location = useLocation();
+
+  const { isLoggedIn } = useContext(AuthContext);
 
   useEffect(() => {
     const grabData = async () => {
@@ -32,7 +35,11 @@ const Comments: React.FC<{}> = () => {
 
   return (
     <>
-      <NewCommentForm id={id} />
+      {isLoggedIn ? (
+        <NewCommentForm id={id} />
+      ) : (
+        <p>Must be logged in to post a comment</p>
+      )}
       <section>
         <ul>{commentList}</ul>
       </section>

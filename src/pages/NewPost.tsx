@@ -1,10 +1,21 @@
-import React from "react";
-import { redirect } from "react-router-dom";
+import React, { useContext, useEffect } from "react";
+import { redirect, useNavigate } from "react-router-dom";
 
 import NewPostForm from "../components/Forms/NewPostForm";
+import { AuthContext } from "../store/auth-context";
+
 import { savePost } from "../utility/api";
 
 const NewPost = () => {
+  const { isLoggedIn } = useContext(AuthContext);
+
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (!isLoggedIn) {
+      navigate("/login");
+    }
+  }, [isLoggedIn, navigate]);
+
   return (
     <>
       <h2>NewPost!</h2>
@@ -20,8 +31,7 @@ export const action = async ({ request }: any) => {
   const postData = {
     text: data.get("post-text"),
     img: data.get("post-img").trim(),
-    //get author from context
-    author: "Admin",
+    author: data.get("post-author"),
   };
 
   savePost(postData);

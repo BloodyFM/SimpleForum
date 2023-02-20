@@ -23,7 +23,7 @@ const AuthContextProvider: React.FC<PropsWithChildren<{}>> = (props) => {
   const [token, setToken] = useState<string | null>(initToken);
   const isLoggedIn: boolean = !!token;
 
-  let username: string = "";
+  let username: string = "Test User";
   // fetch username and assign it if logged in
   if (isLoggedIn) {
     // grabbing username here

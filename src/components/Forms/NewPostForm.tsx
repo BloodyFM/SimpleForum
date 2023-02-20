@@ -1,9 +1,18 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Form } from "react-router-dom";
+import { AuthContext } from "../../store/auth-context";
 
 const NewPostForm = () => {
+  const { username } = useContext(AuthContext);
+
   return (
     <Form action="/newpost" method="post">
+      <input
+        name="post-author"
+        id="post-author"
+        type="hidden"
+        value={username}
+      />
       <fieldset>
         <label htmlFor="post-text">Write a post!</label>
         <textarea

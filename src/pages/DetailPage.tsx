@@ -36,7 +36,10 @@ export const action = async ({ request, params }: any) => {
   const data = await request.formData();
   const commentData: CommentData = {
     id: "",
-    data: { text: data.get("comment-text"), author: "Admin"/*temporary name*/ },
+    data: {
+      text: data.get("comment-text"),
+      author: "Admin" /*temporary name*/,
+    },
     postId: params.id,
   };
 
