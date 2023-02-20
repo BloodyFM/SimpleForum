@@ -81,7 +81,7 @@ export const getComments = async (postId: string) => {
   const loadedComments: CommentData[] = [];
   for (const key in commentData) {
     if (commentData[key].quoteId === postId) {
-      loadedComments.push({
+      loadedComments.unshift({
         id: key.toString(),
         data: {
           text: commentData[key].data.text,

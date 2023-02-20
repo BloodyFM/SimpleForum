@@ -9,7 +9,7 @@ const HomePage = () => {
   const loaderData: any = useLoaderData();
   const loadedPosts: Posts[] = [];
   for (const key in loaderData) {
-    loadedPosts.push({
+    loadedPosts.unshift({
       id: key.toString(),
       text: loaderData[key].text,
       img: loaderData[key].img,
