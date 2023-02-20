@@ -31,7 +31,7 @@ const ProfilePage = () => {
     <>
       <h1>{username}</h1>
       <h2>ProfilePage!</h2>
-      <PostList findAutor="Admin" data={loadedPosts} />
+      <PostList findAutor={username} data={loadedPosts} />
     </>
   );
 };

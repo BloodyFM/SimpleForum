@@ -2,7 +2,7 @@ import React from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import Layout from "./pages/RootLayout";
-import AuthPage, { action as authAction } from "./pages/AuthPage";
+import AuthPage from "./pages/AuthPage";
 import ErrorPage from "./pages/ErrorPage";
 import HomePage, { loader as postLoader } from "./pages/HomePage";
 import ProfilePage, { loader as personalPostLoader } from "./pages/ProfilePage";
@@ -19,7 +19,7 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
     children: [
       { index: true, element: <HomePage />, loader: postLoader },
-      { path: "/login", element: <AuthPage />, action: authAction },
+      { path: "/login", element: <AuthPage /> },
       {
         path: "/profile",
         element: <ProfilePage />,

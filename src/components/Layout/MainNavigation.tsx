@@ -5,14 +5,14 @@ import { AuthContext } from "../../store/auth-context";
 import style from "./MainNavigation.module.css";
 
 const MainNavigation = () => {
-  const { isLoggedIn } = useContext(AuthContext);
+  const { isLoggedIn, logout } = useContext(AuthContext);
 
   const navigate = useNavigate();
   const logoutHandler = () => {
     if (!isLoggedIn) {
       navigate("/login");
     } else {
-      console.log("logout");
+      logout();
     }
   };
 
