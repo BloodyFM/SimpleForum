@@ -21,6 +21,7 @@ const AuthForm = () => {
               name="auth-username"
               id="auth-username"
               type="text"
+              defaultValue=""
               required
             />
           </div>

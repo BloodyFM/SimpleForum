@@ -19,6 +19,7 @@ export const AuthContext = React.createContext<AuthContextObj>({
 const AuthContextProvider: React.FC<PropsWithChildren<{}>> = (props) => {
   let initToken: string | null = null;
   // Try to get token when opening wepsite. If unsuccessfull it will be null
+  //initToken = "123";
 
   const [token, setToken] = useState<string | null>(initToken);
   const isLoggedIn: boolean = !!token;

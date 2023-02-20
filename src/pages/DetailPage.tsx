@@ -38,7 +38,7 @@ export const action = async ({ request, params }: any) => {
     id: "",
     data: {
       text: data.get("comment-text"),
-      author: "Admin" /*temporary name*/,
+      author: data.get("comment-author"),
     },
     postId: params.id,
   };
