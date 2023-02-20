@@ -30,21 +30,21 @@ const AuthForm = () => {
 
     if (!isLoggingIn) {
       // create user
-      const token = await createUser({
+      const { idToken, expirationTime } = await createUser({
         username: authFormData.username.value,
         email: authFormData.email.value,
         password: authFormData.password.value,
       });
 
-      login(token, authFormData.username.value);
+      login(idToken, authFormData.username.value, expirationTime);
     } else {
       // login with existing user
-      const { token, username } = await loginUser({
+      const { token, username, expirationTime } = await loginUser({
         email: authFormData.email.value,
         password: authFormData.password.value,
       });
 
-      login(token, username);
+      login(token, username, expirationTime);
     }
 
     navigate("/");

@@ -135,7 +135,8 @@ export const createUser = async (userData: AuthData) => {
       throw new Response("Could not register user");
     }
   });
-  const { localId, idToken } = data;
+  const { localId, idToken, expiresIn } = data;
+  const expirationTime = new Date(new Date().getTime() + expiresIn * 1000);
 
   // step 3 upload username with userId as identifier
   const responsePostUsername = await fetch(
@@ -155,7 +156,8 @@ export const createUser = async (userData: AuthData) => {
   if (!responsePostUsername.ok) {
     throw responsePostUsername;
   }
-  return idToken;
+
+  return { idToken, expirationTime: expirationTime.toString() };
 };
 
 type LoginData = {
@@ -183,7 +185,8 @@ export const loginUser = async ({ email, password }: LoginData) => {
       throw new Response("Could not login user");
     }
   });
-  const { localId, idToken } = data;
+  const { localId, idToken, expiresIn } = data;
+  const expirationTime = new Date(new Date().getTime() + expiresIn * 1000);
 
   // step 2 use UID to grab username from database
   const responseGetUsername = await fetch(
@@ -203,5 +206,9 @@ export const loginUser = async ({ email, password }: LoginData) => {
     throw new Response("Failed to find username");
   }
 
-  return { token: idToken, username };
+  return {
+    token: idToken,
+    username,
+    expirationTime: expirationTime.toString(),
+  };
 };
