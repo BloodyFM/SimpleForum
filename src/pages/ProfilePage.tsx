@@ -5,6 +5,9 @@ import { getPosts } from "../utility/api";
 import Posts from "../components/PostList/Posts";
 import PostList from "../components/PostList/PostList";
 import { AuthContext } from "../store/auth-context";
+import Card from "../components/UI/Card";
+
+import style from "./ProfilePage.module.css";
 
 const ProfilePage = () => {
   const { isLoggedIn, username } = useContext(AuthContext);
@@ -29,8 +32,11 @@ const ProfilePage = () => {
 
   return (
     <>
-      <h1>{username}</h1>
-      <h2>ProfilePage!</h2>
+      <section className={style.profile}>
+        <Card className={style.info}>
+          <h1>{username + "'s Posts!"}</h1>
+        </Card>
+      </section>
       <PostList findAutor={username} data={loadedPosts} />
     </>
   );
