@@ -16,12 +16,7 @@ const NewPost = () => {
     }
   }, [isLoggedIn, navigate]);
 
-  return (
-    <>
-      <h2>NewPost!</h2>
-      <NewPostForm />
-    </>
-  );
+  return <NewPostForm />;
 };
 
 export default NewPost;
