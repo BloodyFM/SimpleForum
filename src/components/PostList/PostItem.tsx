@@ -2,6 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 
 import Card from "../UI/Card";
+import style from "./PostItem.module.css";
 
 const PostItem: React.FC<{
   text: string;
@@ -19,16 +20,14 @@ const PostItem: React.FC<{
 
   return (
     <li>
-      <Card>
+      <Card className={style.item}>
         <section onClick={openDetailHandler}>
-          <div>
+          <div className={style.user}>
             <h2>{author}</h2>
           </div>
           <p>{text}</p>
           {loadImage && (
             <img
-              height="30%"
-              width="30%"
               src={url}
               alt="Could not load. Url must be incorrect or it is expired."
             />

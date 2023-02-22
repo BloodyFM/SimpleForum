@@ -5,6 +5,7 @@ import { CommentData, getComments } from "../../utility/api";
 import Comment from "./Comment";
 import NewCommentForm from "../Forms/NewCommentForm";
 import { AuthContext } from "../../store/auth-context";
+import style from "./Comments.module.css";
 
 const Comments: React.FC<{}> = () => {
   const [commentData, setCommentData] = useState<CommentData[]>([]);
@@ -34,16 +35,14 @@ const Comments: React.FC<{}> = () => {
   }
 
   return (
-    <>
+    <section className={style.comments}>
       {isLoggedIn ? (
         <NewCommentForm id={id} />
       ) : (
         <p>Must be logged in to post a comment</p>
       )}
-      <section>
-        <ul>{commentList}</ul>
-      </section>
-    </>
+      <ul>{commentList}</ul>
+    </section>
   );
 };
 

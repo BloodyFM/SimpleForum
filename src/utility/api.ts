@@ -212,3 +212,18 @@ export const loginUser = async ({ email, password }: LoginData) => {
     expirationTime: expirationTime.toString(),
   };
 };
+
+export const getUsername = async (uId: string) => {
+  const responseCheckUsername = await fetch(
+    "https://react-http-test-af027-default-rtdb.europe-west1.firebasedatabase.app/forumUsers.json"
+  );
+  if (!responseCheckUsername.ok) {
+    throw new Response("Failed to fetch usernames.");
+  }
+  const usernameData = await responseCheckUsername.json();
+  for (const key in usernameData) {
+    if (usernameData[key].id === uId) {
+      return usernameData[key].username;
+    }
+  }
+};

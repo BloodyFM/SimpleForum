@@ -57,7 +57,13 @@ const AuthForm = () => {
         {!isLoggingIn && (
           <div>
             <label htmlFor="username">Your Username</label>
-            <input name="username" id="username" type="text" required />
+            <input
+              name="username"
+              id="username"
+              type="text"
+              required
+              maxLength={15}
+            />
           </div>
         )}
         <div>

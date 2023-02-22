@@ -2,15 +2,16 @@ import React from "react";
 
 import Card from "../UI/Card";
 import Posts from "../PostList/Posts";
+import style from "./PostDetail.module.css";
 
 const PostDetail: React.FC<{ data: Posts }> = ({ data }) => {
   const loadImage = data.img !== "";
 
   return (
-    <Card>
-      <section>
-        <div>
-          <p>{data.author}</p>
+    <section className={style.post}>
+      <Card className={style.item}>
+        <div className={style.user}>
+          <h2>{data.author}</h2>
         </div>
         <div>
           <p>{data.text}</p>
@@ -21,8 +22,8 @@ const PostDetail: React.FC<{ data: Posts }> = ({ data }) => {
             />
           )}
         </div>
-      </section>
-    </Card>
+      </Card>
+    </section>
   );
 };
 

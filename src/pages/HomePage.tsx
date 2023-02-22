@@ -16,11 +16,9 @@ const HomePage = () => {
       author: loaderData[key].author,
     });
   }
-  
 
   return (
     <>
-      <h2>HomePage!</h2>
       <PostList findAutor="" data={loadedPosts} />
     </>
   );
@@ -29,5 +27,5 @@ const HomePage = () => {
 export default HomePage;
 
 export async function loader() {
-  return getPosts();
+  return await getPosts();
 }

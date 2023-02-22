@@ -1,0 +1,46 @@
+.theform {
+  background-color: darkslategray;
+  box-shadow: 1px 2px 5px rgba(0, 0, 0, 0.2);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem;
+}
+
+.theform button {
+  font: inherit;
+  background-color: transparent;
+  color: lightcyan;
+  border: 1px solid lightcyan;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+.theform button:hover {
+  background-color: darkcyan;
+  color: darkslategrey;
+}
+
+.inputfield {
+  width: 100%;
+}
+
+.inputfield label {
+  color: lightcyan;
+}
+
+.inputfield textarea {
+  border: hidden;
+  border-radius: 6px;
+  width: 100%;
+  resize: none;
+  padding: 0.5rem;
+  margin-right: 0.5rem;
+}
+
+.inputsubmit {
+  display: flex;
+  justify-content: flex-start;
+  margin-top: 0.5rem;
+}

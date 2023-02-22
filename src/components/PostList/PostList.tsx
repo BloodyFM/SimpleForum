@@ -2,6 +2,7 @@ import React from "react";
 
 import PostItem from "./PostItem";
 import Posts from "./Posts";
+import style from "./PostList.module.css";
 
 const PostList: React.FC<{ findAutor: string; data: Posts[] }> = ({
   findAutor = "",
@@ -20,7 +21,7 @@ const PostList: React.FC<{ findAutor: string; data: Posts[] }> = ({
   }
 
   return (
-    <ul>
+    <ul className={style.list}>
       {filteredData.map((post: any) => (
         <PostItem
           key={post.id}

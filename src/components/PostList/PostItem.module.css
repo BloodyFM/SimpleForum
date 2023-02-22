@@ -1,0 +1,35 @@
+.item {
+  text-align: center;
+  box-shadow: 1px 2px 5px 0px darkslategray;
+  cursor: pointer;
+  padding: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.user {
+  max-width: 15rem;
+  background-color: darkslategrey;
+  border-radius: 6px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+  margin-left: 0;
+  margin-right: auto;
+}
+
+.user h2 {
+  color: lightcyan;
+  font-family: "Lato", sans-serif;
+  font-size: 1.5rem;
+  margin: 0;
+  padding: 0.5rem;
+}
+
+.item img {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.item p {
+  color: darkslategray;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+  font-size: 1rem;
+}
