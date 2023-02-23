@@ -1,16 +1,14 @@
-import React from "react";
+import React, { lazy, Suspense } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import Layout from "./pages/RootLayout";
-import AuthPage from "./pages/AuthPage";
 import ErrorPage from "./pages/ErrorPage";
 import HomePage, { loader as postLoader } from "./pages/HomePage";
-import ProfilePage, { loader as personalPostLoader } from "./pages/ProfilePage";
-import NewPost, { action as newPostAction } from "./pages/NewPost";
-import DetailPage, {
-  loader as detailPostLoader,
-  action as newCommentAction,
-} from "./pages/DetailPage";
+
+const ProfilePage = lazy(() => import("./pages/ProfilePage"));
+const AuthPage = lazy(() => import("./pages/AuthPage"));
+const NewPost = lazy(() => import("./pages/NewPost"));
+const DetailPage = lazy(() => import("./pages/DetailPage"));
 
 const router = createBrowserRouter([
   {
@@ -18,19 +16,50 @@ const router = createBrowserRouter([
     element: <Layout />,
     errorElement: <ErrorPage />,
     children: [
-      { index: true, element: <HomePage />, loader: postLoader },
-      { path: "/login", element: <AuthPage /> },
+      {
+        index: true,
+        element: <HomePage />,
+        loader: postLoader,
+      },
+      {
+        path: "/login",
+        element: (
+          <Suspense>
+            <AuthPage />
+          </Suspense>
+        ),
+      },
       {
         path: "/profile",
-        element: <ProfilePage />,
-        loader: personalPostLoader,
+        element: (
+          <Suspense>
+            <ProfilePage />
+          </Suspense>
+        ),
+        loader: () =>
+          import("./pages/ProfilePage").then((module) => module.loader()),
       },
-      { path: "/newpost", element: <NewPost />, action: newPostAction },
+      {
+        path: "/newpost",
+        element: (
+          <Suspense>
+            <NewPost />
+          </Suspense>
+        ),
+        action: (meta) =>
+          import("./pages/NewPost").then((module) => module.action(meta)),
+      },
       {
         path: ":id",
-        element: <DetailPage />,
-        loader: detailPostLoader,
-        action: newCommentAction,
+        element: (
+          <Suspense>
+            <DetailPage />
+          </Suspense>
+        ),
+        loader: (meta) =>
+          import("./pages/DetailPage").then((module) => module.loader(meta)),
+        action: (meta) =>
+          import("./pages/DetailPage").then((module) => module.action(meta)),
       },
     ],
   },
