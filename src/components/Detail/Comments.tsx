@@ -21,6 +21,11 @@ const Comments: React.FC<{}> = () => {
       setCommentData(data);
     };
     grabData();
+
+    const refreshComments = setInterval(() => {
+      grabData();
+    }, 3000);
+    return () => clearInterval(refreshComments);
   }, [id, location]);
 
   let commentList: any = <p>No Comments</p>;
