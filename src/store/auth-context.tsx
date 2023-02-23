@@ -38,9 +38,9 @@ const calculateRemainingTime = (expirationTime: string) => {
 };
 
 const retrieveTokenData = () => {
+  const UID = localStorage.getItem("UID");
   const token = localStorage.getItem("token");
   const username = localStorage.getItem("username");
-  const UID = localStorage.getItem("UID");
   const expirationTime = localStorage.getItem("expirationTime");
 
   let remainingTime = 0;
@@ -51,9 +51,9 @@ const retrieveTokenData = () => {
   // if time runs out clear local storage and return null
   // we wipe it 60 seconds before the token expires for safety
   if (remainingTime <= 60000) {
+    localStorage.removeItem("UID");
     localStorage.removeItem("token");
     localStorage.removeItem("username");
-    localStorage.removeItem("UID");
     localStorage.removeItem("expirationTime");
     return { token: null, username: null, UID: null, remainingTime: null };
   }
@@ -80,14 +80,14 @@ const AuthContextProvider: React.FC<PropsWithChildren<{}>> = (props) => {
   const isLoggedIn: boolean = !!token;
 
   const loginHandler = (
+    UID: string,
     token: string,
     username: string,
-    UID: string,
     expirationTime: string
   ) => {
+    localStorage.setItem("UID", UID);
     localStorage.setItem("token", token);
     localStorage.setItem("username", username);
-    localStorage.setItem("UID", UID);
     localStorage.setItem("expirationTime", expirationTime);
 
     setToken(token);
@@ -99,9 +99,9 @@ const AuthContextProvider: React.FC<PropsWithChildren<{}>> = (props) => {
     logoutTimer = setTimeout(logoutHandler, remainingTime);
   };
   const logoutHandler = useCallback(() => {
+    localStorage.removeItem("UID");
     localStorage.removeItem("token");
     localStorage.removeItem("username");
-    localStorage.removeItem("UID");
     localStorage.removeItem("expirationTime");
 
     setToken(null);
