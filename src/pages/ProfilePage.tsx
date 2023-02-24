@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useLoaderData, useNavigate } from "react-router-dom";
 
 import { getPosts } from "../utility/api";
@@ -19,7 +19,22 @@ const ProfilePage = () => {
     }
   }, [isLoggedIn, navigate]);
 
-  const loaderData: any = useLoaderData();
+  const initLoaderData: any = useLoaderData();
+
+  const [loaderData, setLoaderData] = useState(initLoaderData);
+
+  // will be usefull if I add functionality to inspect other players post's
+  /*useEffect(() => {
+    const grabData = async () => {
+      setLoaderData(await getPosts());
+    };
+
+    const refreshPosts = setInterval(() => {
+      grabData();
+    }, 3000);
+    return () => clearInterval(refreshPosts);
+  }, []);*/
+
   const loadedPosts: Posts[] = [];
   for (const key in loaderData) {
     loadedPosts.push({

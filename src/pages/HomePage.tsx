@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useLoaderData } from "react-router-dom";
 
 import PostList from "../components/PostList/PostList";
@@ -6,7 +6,20 @@ import { getPosts } from "../utility/api";
 import Posts from "../components/PostList/Posts";
 
 const HomePage = () => {
-  const loaderData: any = useLoaderData();
+  let initLoaderData: any = useLoaderData();
+  const [loaderData, setLoaderData] = useState(initLoaderData);
+
+  useEffect(() => {
+    const grabData = async () => {
+      setLoaderData(await getPosts());
+    };
+
+    const refreshPosts = setInterval(() => {
+      grabData();
+    }, 3000);
+    return () => clearInterval(refreshPosts);
+  }, []);
+
   const loadedPosts: Posts[] = [];
   for (const key in loaderData) {
     loadedPosts.unshift({
