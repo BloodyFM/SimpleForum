@@ -6,7 +6,7 @@ import Card from "../UI/Card";
 import style from "./NewPostForm.module.css";
 
 const NewPostForm = () => {
-  const { username } = useContext(AuthContext);
+  const { UID } = useContext(AuthContext);
 
   return (
     <Form action="/newpost" method="post" className={style.form}>
@@ -15,7 +15,7 @@ const NewPostForm = () => {
           name="post-author"
           id="post-author"
           type="hidden"
-          value={username}
+          value={UID}
         />
         <div>
           <label htmlFor="post-text">Write a post!</label>

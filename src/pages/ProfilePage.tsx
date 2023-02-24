@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useLoaderData, useNavigate } from "react-router-dom";
 
-import { getPosts } from "../utility/api";
+import { getPosts, getUsernames } from "../utility/api";
 import Posts from "../components/PostList/Posts";
 import PostList from "../components/PostList/PostList";
 import { AuthContext } from "../store/auth-context";
@@ -19,30 +19,36 @@ const ProfilePage = () => {
     }
   }, [isLoggedIn, navigate]);
 
-  const initLoaderData: any = useLoaderData();
+  const { postData, nameData }: any = useLoaderData();
 
-  const [loaderData, setLoaderData] = useState(initLoaderData);
+  const [posts, setPosts] = useState(postData);
+  const [names, setNames] = useState(nameData);
 
   // will be usefull if I add functionality to inspect other players post's
-  /*useEffect(() => {
+  useEffect(() => {
     const grabData = async () => {
-      setLoaderData(await getPosts());
+      setPosts(await getPosts());
+      setNames(await getUsernames());
     };
 
     const refreshPosts = setInterval(() => {
       grabData();
     }, 3000);
     return () => clearInterval(refreshPosts);
-  }, []);*/
+  }, []);
 
   const loadedPosts: Posts[] = [];
-  for (const key in loaderData) {
-    loadedPosts.push({
-      id: key.toString(),
-      text: loaderData[key].text,
-      img: loaderData[key].img,
-      author: loaderData[key].author,
-    });
+  for (const key in posts) {
+    for (const x in names) {
+      if (names[x].UID === posts[key].author) {
+        loadedPosts.unshift({
+          id: key.toString(),
+          text: posts[key].text,
+          img: posts[key].img,
+          author: names[x].username,
+        });
+      }
+    }
   }
 
   return (
@@ -60,5 +66,5 @@ const ProfilePage = () => {
 export default ProfilePage;
 
 export async function loader() {
-  return getPosts();
+  return { postData: await getPosts(), nameData: await getUsernames() };
 }

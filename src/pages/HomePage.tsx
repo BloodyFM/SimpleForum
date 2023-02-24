@@ -2,18 +2,19 @@ import React, { useEffect, useState } from "react";
 import { useLoaderData } from "react-router-dom";
 
 import PostList from "../components/PostList/PostList";
-import { getPosts } from "../utility/api";
+import { getPosts, getUsernames } from "../utility/api";
 import Posts from "../components/PostList/Posts";
 
 const HomePage = () => {
-  let initLoaderData: any = useLoaderData();
-  const [loaderData, setLoaderData] = useState(initLoaderData);
+  let { postData, nameData }: any = useLoaderData();
+  const [posts, setPosts] = useState(postData);
+  const [names, setNames] = useState(nameData);
 
   useEffect(() => {
     const grabData = async () => {
-      setLoaderData(await getPosts());
+      setPosts(await getPosts());
+      setNames(await getUsernames());
     };
-
     const refreshPosts = setInterval(() => {
       grabData();
     }, 3000);
@@ -21,13 +22,17 @@ const HomePage = () => {
   }, []);
 
   const loadedPosts: Posts[] = [];
-  for (const key in loaderData) {
-    loadedPosts.unshift({
-      id: key.toString(),
-      text: loaderData[key].text,
-      img: loaderData[key].img,
-      author: loaderData[key].author,
-    });
+  for (const key in posts) {
+    for (const x in names) {
+      if (names[x].UID === posts[key].author) {
+        loadedPosts.unshift({
+          id: key.toString(),
+          text: posts[key].text,
+          img: posts[key].img,
+          author: names[x].username,
+        });
+      }
+    }
   }
 
   return (
@@ -40,5 +45,5 @@ const HomePage = () => {
 export default HomePage;
 
 export async function loader() {
-  return await getPosts();
+  return { postData: await getPosts(), nameData: await getUsernames() };
 }

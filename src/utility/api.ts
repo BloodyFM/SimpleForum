@@ -41,12 +41,30 @@ export async function getPosts() {
 }
 
 export async function getPost(id: string) {
-  return fetch(
+  const response = await fetch(
     "https://react-http-test-af027-default-rtdb.europe-west1.firebasedatabase.app/forum/" +
       id +
       ".json"
   );
-  // should add .json ?
+  if (!response.ok) {
+    throw new Response("Failed to fetch post.");
+  }
+  const data: any = await response.json();
+  const responseCheckUsername = await fetch(
+    "https://react-http-test-af027-default-rtdb.europe-west1.firebasedatabase.app/forumUsers.json"
+  );
+  if (!responseCheckUsername.ok) {
+    throw new Response("Failed to fetch usernames.");
+  }
+  const usernameData = await responseCheckUsername.json();
+  let author = "";
+  for (const key in usernameData) {
+    if (usernameData[key].id === data.author) {
+      author = usernameData[key].username;
+    }
+  }
+
+  return { text: data.text, author, img: data.img };
 }
 
 export const saveComment = async (commentData: CommentData) => {
@@ -215,8 +233,6 @@ export const loginUser = async ({ email, password }: LoginData) => {
 };
 
 // this will be used when I change the identification on posts and comments to UID instead of Author or username
-// idea is to get usernames and UID data once and this will only need to run again if someone creates a new user and a new post or comment
-// that needs rendering while you are on the site
 export const getUsernames = async () => {
   const responseCheckUsername = await fetch(
     "https://react-http-test-af027-default-rtdb.europe-west1.firebasedatabase.app/forumUsers.json"
@@ -229,7 +245,7 @@ export const getUsernames = async () => {
   for (const key in usernameData) {
     loadedUsernameData.push({
       username: usernameData[key].username,
-      UID: usernameData[key].uId,
+      UID: usernameData[key].id,
     });
   }
   return loadedUsernameData;
