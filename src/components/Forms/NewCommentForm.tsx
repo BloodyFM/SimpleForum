@@ -20,7 +20,7 @@ const NewCommentForm: React.FC<{ id: string }> = ({ id }) => {
           <label htmlFor="comment-text">Write a comment!</label>
           <br />
           <div className={style.inputsubmit}>
-            <textarea name="comment-text" id="comment-text" />
+            <textarea name="comment-text" id="comment-text" required/>
             <button>Add Comment</button>
           </div>
         </div>

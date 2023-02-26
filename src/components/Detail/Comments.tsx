@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useContext } from "react";
 import { useLocation, useParams } from "react-router-dom";
 
-import { CommentData, getComments } from "../../utility/api";
+import { CommentData, getComments, getUsernames } from "../../utility/api";
 import Comment from "./Comment";
 import NewCommentForm from "../Forms/NewCommentForm";
 import { AuthContext } from "../../store/auth-context";
@@ -18,6 +18,14 @@ const Comments: React.FC<{}> = () => {
   useEffect(() => {
     const grabData = async () => {
       const data: CommentData[] = await getComments(id);
+      const users = await getUsernames();
+      for (const key in data) {
+        for (const x in users) {
+          if (data[key].data.author === users[x].UID) {
+            data[key].data.author = users[x].username;
+          }
+        }
+      }
       setCommentData(data);
     };
     grabData();
