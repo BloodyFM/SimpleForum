@@ -6,7 +6,7 @@ import Card from "../UI/Card";
 import style from "./NewCommentForm.module.css";
 
 const NewCommentForm: React.FC<{ id: string }> = ({ id }) => {
-  const { username } = useContext(AuthContext);
+  const { UID } = useContext(AuthContext);
   return (
     <Form action={`/${id}`} method="post">
       <Card className={style.theform}>
@@ -14,7 +14,7 @@ const NewCommentForm: React.FC<{ id: string }> = ({ id }) => {
           name="comment-author"
           id="comment-author"
           type="hidden"
-          value={username}
+          value={ UID }
         />
         <div className={style.inputfield}>
           <label htmlFor="comment-text">Write a comment!</label>
