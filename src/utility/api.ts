@@ -58,13 +58,15 @@ export async function getPost(id: string) {
   }
   const usernameData = await responseCheckUsername.json();
   let author = "";
+  let UID = "";
   for (const key in usernameData) {
     if (usernameData[key].id === data.author) {
       author = usernameData[key].username;
+      UID = usernameData[key].id;
     }
   }
 
-  return { text: data.text, author, img: data.img };
+  return { text: data.text, author, UID, img: data.img };
 }
 
 export const saveComment = async (commentData: CommentData) => {

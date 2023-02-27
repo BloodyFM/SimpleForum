@@ -28,6 +28,7 @@ const PostList: React.FC<{ findAutor: string; data: Posts[] }> = ({
           id={post.id}
           text={post.text}
           author={post.author}
+          UID={post.UID}
           url={post.img}
         />
       ))}

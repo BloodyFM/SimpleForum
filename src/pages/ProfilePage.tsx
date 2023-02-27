@@ -46,6 +46,7 @@ const ProfilePage = () => {
           text: posts[key].text,
           img: posts[key].img,
           author: names[x].username,
+          UID: posts[key].author,
         });
       }
     }

@@ -30,16 +30,13 @@ const HomePage = () => {
           text: posts[key].text,
           img: posts[key].img,
           author: names[x].username,
+          UID: posts[key].author,
         });
       }
     }
   }
 
-  return (
-    <>
-      <PostList findAutor="" data={loadedPosts} />
-    </>
-  );
+  return <PostList findAutor="" data={loadedPosts} />;
 };
 
 export default HomePage;

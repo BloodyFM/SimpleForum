@@ -13,6 +13,7 @@ const DetailPage = () => {
     text: data.text,
     author: data.author,
     img: data.img,
+    UID: data.UID,
   };
 
   return (
@@ -25,10 +26,10 @@ const DetailPage = () => {
 
 export default DetailPage;
 
-export function loader({ params }: any) {
+export async function loader({ params }: any) {
   const postId: string = params.id;
 
-  return getPost(postId);
+  return await getPost(postId);
 }
 
 export const action = async ({ request, params }: any) => {

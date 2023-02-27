@@ -10,9 +10,16 @@
   max-width: 15rem;
   background-color: darkslategrey;
   border-radius: 6px;
+  border: none;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
   margin-left: 0;
   margin-right: auto;
+  cursor: pointer;
+}
+
+.user:hover {
+  background-color: darkcyan;
+  color: darkslategrey;
 }
 
 .user h2 {

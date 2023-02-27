@@ -7,9 +7,10 @@ import style from "./PostItem.module.css";
 const PostItem: React.FC<{
   text: string;
   author: string;
+  UID: string;
   url: string;
   id: string;
-}> = ({ text, author, url, id }) => {
+}> = ({ text, author, UID, url, id }) => {
   const navigate = useNavigate();
 
   const loadImage = url !== "";
@@ -18,11 +19,16 @@ const PostItem: React.FC<{
     navigate(`/${id}`);
   };
 
+  const openProfileHandler = (event: React.MouseEvent<HTMLElement>) => {
+    event.stopPropagation();
+    navigate(`/profile/${UID}`);
+  };
+
   return (
     <li>
       <Card className={style.item}>
         <section onClick={openDetailHandler}>
-          <div className={style.user}>
+          <div className={style.user} onClick={openProfileHandler}>
             <h2>{author}</h2>
           </div>
           <p>{text}</p>
