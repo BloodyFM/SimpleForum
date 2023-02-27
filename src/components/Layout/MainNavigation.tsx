@@ -5,7 +5,7 @@ import { AuthContext } from "../../store/auth-context";
 import style from "./MainNavigation.module.css";
 
 const MainNavigation = () => {
-  const { isLoggedIn, logout } = useContext(AuthContext);
+  const { isLoggedIn, logout, UID } = useContext(AuthContext);
 
   const navigate = useNavigate();
   const logoutHandler = () => {
@@ -30,7 +30,7 @@ const MainNavigation = () => {
           )}
           {isLoggedIn && (
             <li>
-              <Link to="/profile">Profile</Link>
+              <Link to={`/profile/${UID}`}>Profile</Link>
             </li>
           )}
           <li>

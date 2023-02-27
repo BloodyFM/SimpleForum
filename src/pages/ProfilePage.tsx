@@ -1,28 +1,28 @@
-import React, { useContext, useEffect, useState } from "react";
-import { useLoaderData, useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useLoaderData, useParams } from "react-router-dom";
 
 import { getPosts, getUsernames } from "../utility/api";
 import Posts from "../components/PostList/Posts";
 import PostList from "../components/PostList/PostList";
-import { AuthContext } from "../store/auth-context";
 import Card from "../components/UI/Card";
 
 import style from "./ProfilePage.module.css";
 
 const ProfilePage = () => {
-  const { isLoggedIn, username } = useContext(AuthContext);
-
-  const navigate = useNavigate();
-  useEffect(() => {
-    if (!isLoggedIn) {
-      navigate("/login");
-    }
-  }, [isLoggedIn, navigate]);
+  const { id: UID } = useParams();
+  let username = "";
 
   const { postData, nameData }: any = useLoaderData();
 
   const [posts, setPosts] = useState(postData);
-  const [names, setNames] = useState(nameData);
+  const [names, setNames] =
+    useState<{ UID: string; username: string }[]>(nameData);
+
+  for (const x in names) {
+    if (UID === names[x].UID) {
+      username = names[x].username;
+    }
+  }
 
   // will be usefull if I add functionality to inspect other players post's
   useEffect(() => {
